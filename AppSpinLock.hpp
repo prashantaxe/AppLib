@@ -31,7 +31,7 @@ class spin_lock
 			if(m_lock.compare_exchange_strong(state, LOCKED, std::memory_order_acq_rel))
 				break;
 		}
-		while(m_lock.load(std::memory_order_acquire)!=UNLOCKED)
+		while(m_lock.load(std::memory_order_acquire)!=UNLOCKED);
 	}
 	void unlock()
 	{

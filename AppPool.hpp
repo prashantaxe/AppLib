@@ -43,7 +43,7 @@ public:
 	bool init(int64_t initSize=INIT_SIZE,
 			  int64_t growSize=GROW_SIZE)
 		{
-			T* tempPtr = static_cast<T*>(new char[INIT_SIZE*sizeof(T)]);
+			T* tempPtr = reinterpret_cast<T*>(new char[INIT_SIZE*sizeof(T)]);
 			if(!tempPtr)
 			{
 				
@@ -54,6 +54,7 @@ public:
 				m_allocList.push_back(tempPtr+i);
 			}
 			m_freeList.push_back(tempPtr);
+			return true;
 		}
 		T* allocPtrObj()
 		{
