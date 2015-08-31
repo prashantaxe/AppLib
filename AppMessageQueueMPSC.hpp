@@ -27,7 +27,7 @@ template<class T, uint32_t Q_SIZE=SIZE>
 class AppMessageQueueMPSC
 {
 protected:
-	// The intent to use padding is to avoid 
+	// The intent to use padding is to avoid excessive flushing of cacheline. 
 	T* m_buffer;
 	char padding1[CACHELINE_SIZE];
 	uint32_t m_size;
@@ -35,6 +35,7 @@ protected:
 	std::atomic<uint32_t> m_readID;
 	char padding3[CACHELINE_SIZE];
 	std::atomic<uint32_t> m_writeID;
+	char padding4[CACHELINE_SIZE];
 	AppSpinLock m_lock;
 
 	is_pow_of_2<Q_SIZE> dummy;
